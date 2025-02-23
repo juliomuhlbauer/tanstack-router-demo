@@ -12,7 +12,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import "./styles.css";
 import reportWebVitals from "./reportWebVitals.ts";
 
-import { Note, Notes } from "./App.tsx";
+import { Home, Note, Notes } from "./App.tsx";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -26,16 +26,22 @@ const rootRoute = createRootRoute({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
+  component: Home,
+});
+
+const notesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/notes",
   component: Notes,
 });
 
-const dynamicRoute = createRoute({
+const noteRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/$id",
+  path: "/note/$id",
   component: Note,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, dynamicRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, notesRoute, noteRoute]);
 
 const router = createRouter({
   routeTree,

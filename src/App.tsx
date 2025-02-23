@@ -1,6 +1,10 @@
 import "./App.css";
 import { Link, useNavigate, useParams } from "@tanstack/react-router";
 
+export function Home() {
+  return <Link to="/notes">Go to notes</Link>;
+}
+
 const notes = [
   {
     id: "1",
@@ -20,7 +24,7 @@ export function Notes() {
   return (
     <div>
       {notes.map((note) => (
-        <Link key={note.id} to="/$id" params={{ id: note.id }}>
+        <Link key={note.id} to="/note/$id" params={{ id: note.id }}>
           <p>{note.text}</p>
         </Link>
       ))}
@@ -29,7 +33,7 @@ export function Notes() {
 }
 
 export function Note() {
-  const { id } = useParams({ from: "/$id" });
+  const { id } = useParams({ from: "/note/$id" });
   const navigate = useNavigate();
 
   const currentNote = notes.find((note) => note.id === id);
