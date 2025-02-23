@@ -47,7 +47,7 @@ export function Note() {
       <button
         onClick={() => {
           navigate({
-            to: "/",
+            to: "/notes",
             replace: true,
           });
         }}
