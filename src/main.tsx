@@ -6,6 +6,7 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
+  redirect,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
@@ -41,7 +42,26 @@ const noteRoute = createRoute({
   component: Note,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, notesRoute, noteRoute]);
+const newRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/new",
+  component: Note,
+  loader: () => {
+    console.log("new note created");
+
+    throw redirect({
+      to: "/note/$id",
+      params: { id: "1" },
+    });
+  },
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  notesRoute,
+  noteRoute,
+  newRoute,
+]);
 
 const router = createRouter({
   routeTree,
