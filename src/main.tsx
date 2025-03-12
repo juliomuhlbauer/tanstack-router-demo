@@ -45,7 +45,6 @@ const noteRoute = createRoute({
 const newRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/new",
-  component: Note,
   loader: () => {
     console.log("new note created");
 
